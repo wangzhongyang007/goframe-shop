@@ -1,0 +1,42 @@
+# HTTP Server
+[server]
+Address = ":8199"
+ServerRoot = "public"
+ServerAgent = "gf-app"
+LogPath = "/tmp/log/gf-app/server"
+
+# Logger.
+[logger]
+Path = "/tmp/log/gf-app"
+Level = "all"
+Stdout = true
+
+# Template.
+[viewer]
+Path = "template"
+DefaultFile = "index.html"
+Delimiters = ["{{", "}}"]
+
+# Database.
+[database]
+link = "mysql:root:xxxxx@tcp(127.0.0.1:3306)/shop"
+debug = true
+# Database logger.
+[database.logger]
+Path = "/tmp/log/gf-app/sql"
+Level = "all"
+Stdout = true
+
+[gfcli]
+[[gfcli.gen.dao]]
+link = "mysql:root:xxxxx@tcp(127.0.0.1:3306)/shop"
+
+#redis
+[redis]
+default = "127.0.0.1:6379,xxxxxx?idleTimeout=600"
+
+[qiniu]
+bucket = "shopxxx"
+accessKey = "xxxxx"
+secretKey = "xxxxx"
+url = "http://xxxxx.hb-bkt.clouddn.com/"

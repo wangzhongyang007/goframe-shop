@@ -1,0 +1,66 @@
+package admin
+
+import (
+	"context"
+	"database/sql"
+	"github.com/gogf/gf/frame/g"
+	"github.com/gogf/gf/util/grand"
+	"shop/app/dao"
+	"shop/library"
+)
+
+var service = new(rotationService)
+
+type rotationService struct {
+}
+
+func (s *rotationService) Add(ctx context.Context, req *AddAdminReq) (res sql.Result, err error) {
+	UserSalt := grand.S(10)
+	req.Password = library.EncryptPassword(req.Password, UserSalt)
+	req.UserSalt = UserSalt
+	res, err = dao.AdminInfo.Ctx(ctx).Insert(req)
+	if err != nil {
+		return nil, err
+	}
+	return
+}
+
+func (s *rotationService) Update(ctx context.Context, req *UpdateAdminReq) (res sql.Result, err error) {
+	if req.Password != "" {
+		UserSalt := grand.S(10)
+		req.Password = library.EncryptPassword(req.Password, UserSalt)
+		req.UserSalt = UserSalt
+	}
+	res, err = dao.AdminInfo.Ctx(ctx).WherePri(req.Id).Update(req)
+	if err != nil {
+		return nil, err
+	}
+	return
+}
+
+func (s *rotationService) Delete(ctx context.Context, req *SoftDeleteReq) (res sql.Result, err error) {
+	res, err = dao.AdminInfo.Ctx(ctx).WherePri(req.Id).Delete()
+	if err != nil {
+		return nil, err
+	}
+	return
+}
+
+func (s *rotationService) List(ctx context.Context, req *PageListReq) (res ListAdminRes, err error) {
+	whereCondition := g.Map{}
+	if req.Keyword != "" {
+		whereCondition = g.Map{
+			dao.AdminInfo.Columns.Name + " like ": "%" + req.Keyword + "%",
+		}
+	}
+	count, err := dao.AdminInfo.Ctx(ctx).Where(whereCondition).Count()
+	if err != nil {
+		return
+	}
+	res.Count = count
+	err = dao.AdminInfo.Ctx(ctx).Where(whereCondition).Page(req.Page, req.Limit).OrderDesc("id").Scan(&res.List)
+	if err != nil {
+		return
+	}
+	return
+}
