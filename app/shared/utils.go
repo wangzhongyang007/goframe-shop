@@ -1,8 +1,8 @@
 package shared
 
 import (
-	"github.com/gogf/gf/os/gtime"
-	"github.com/gogf/gf/util/gconv"
+	"github.com/gogf/gf/v2/os/gtime"
+	"github.com/gogf/gf/v2/util/gconv"
 	"math/rand"
 	"time"
 )

@@ -5,7 +5,7 @@
 package internal
 
 import (
-	"github.com/gogf/gf/os/gtime"
+	"github.com/gogf/gf/v2/os/gtime"
 )
 
 // CityInfo is the golang structure for table city_info.

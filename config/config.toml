@@ -1,5 +1,6 @@
 # HTTP Server
 [server]
+#todo 如果提示端口被占用 修改一个端口
 Address = ":8299"
 ServerRoot = "public"
 ServerAgent = "gf-app"
@@ -19,7 +20,9 @@ Delimiters = ["{{", "}}"]
 
 # Database.
 [database]
-link = "mysql:root:xxxxxxx@tcp(127.0.0.1:3306)/shop"
+#todo 数据库密码改成你自己的
+link = "mysql:root:2BaDgEMGQj@tcp(127.0.0.1:3306)/shop"
+
 debug = true
 # Database logger.
 [database.logger]
@@ -29,14 +32,17 @@ Stdout = true
 
 [gfcli]
 [[gfcli.gen.dao]]
-link = "mysql:root:xxxxxx@tcp(127.0.0.1:3306)/shop"
+#todo 数据库密码改成自己的
+link = "mysql:root:2BaDgEMGQj@tcp(127.0.0.1:3306)/shop"
 
 #redis
 [redis]
-default = "127.0.0.1:6379,xxxxxx?idleTimeout=600"
+#todo redis密码改成自己的 也可以不用redis gtoken目前使用gcache的方式
+default = "127.0.0.1:6379,cLebEfzsBe5k34Nw?idleTimeout=600"
 
+#todo 上传图片可以使用七牛云 申请自己的bucket等信息进行替换，非常简单。
 [qiniu]
-bucket = "xxxxxx"
-accessKey = "xxxxx"
-secretKey = "xxxxxxxx"
-url = "http://xxxxxxxx.hb-bkt.clouddn.com/"
+bucket = "shopedu"
+accessKey = "C4utXABj8rfw7WyI6DUQm2sIt5duXrMbAthkKyja"
+secretKey = "Arh7CfInRd_IDaQuluu1EfMAroe4REahl4iSJvoc"
+url = "http://rg65ecnwr.hb-bkt.clouddn.com/"

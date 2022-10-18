@@ -1,6 +1,6 @@
 package userCoupon
 
-import "github.com/gogf/gf/util/gmeta"
+import "github.com/gogf/gf/v2/util/gmeta"
 
 type AddCouponReq struct {
 	CouponId int `json:"coupon_id" v:"required#优惠券Id必填"`

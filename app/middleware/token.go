@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"github.com/goflyfox/gtoken/gtoken"
-	"github.com/gogf/gf/net/ghttp"
-	"github.com/gogf/gf/util/gconv"
+	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/util/gconv"
 	"shop/library/response"
 )
 

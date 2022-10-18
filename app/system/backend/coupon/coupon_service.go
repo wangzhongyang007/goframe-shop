@@ -3,7 +3,7 @@ package coupon
 import (
 	"context"
 	"database/sql"
-	"github.com/gogf/gf/net/ghttp"
+	"github.com/gogf/gf/v2/net/ghttp"
 	"shop/app/dao"
 )
 

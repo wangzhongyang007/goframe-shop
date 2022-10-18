@@ -2,8 +2,8 @@ package consignee
 
 import (
 	"context"
-	"github.com/gogf/gf/container/gmap"
-	"github.com/gogf/gf/net/ghttp"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/net/ghttp"
 	"shop/app/dao"
 )
 

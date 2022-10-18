@@ -1,6 +1,6 @@
 package refund
 
-import "github.com/gogf/gf/util/gmeta"
+import "github.com/gogf/gf/v2/util/gmeta"
 
 type AddRefundReq struct {
 	Number  string `json:"number,omitempty" description:"订单编号"`

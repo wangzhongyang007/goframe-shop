@@ -3,7 +3,7 @@ package category
 import (
 	"context"
 	"database/sql"
-	"github.com/gogf/gf/frame/g"
+	"github.com/gogf/gf/v2/frame/g"
 	"shop/app/dao"
 )
 

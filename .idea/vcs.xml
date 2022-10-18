@@ -2,6 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/gf" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/git@github.com:wangzhongyang007/goframe-shop.git" vcs="Git" />
   </component>
 </project>

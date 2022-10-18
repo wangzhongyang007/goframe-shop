@@ -2,8 +2,8 @@ package login
 
 import (
 	"context"
-	"github.com/gogf/gf/errors/gerror"
-	"github.com/gogf/gf/net/ghttp"
+	"github.com/gogf/gf/v2/errors/gerror"
+	"github.com/gogf/gf/v2/net/ghttp"
 	"net/http"
 	"shop/app/dao"
 	"shop/app/middleware"

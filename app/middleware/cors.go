@@ -1,6 +1,6 @@
 package middleware
 
-import "github.com/gogf/gf/net/ghttp"
+import "github.com/gogf/gf/v2/net/ghttp"
 
 var Cors = corsMiddleware{}
 

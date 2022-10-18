@@ -3,9 +3,9 @@ package comment
 import (
 	"context"
 	"database/sql"
-	"github.com/gogf/gf/container/gmap"
-	"github.com/gogf/gf/net/ghttp"
-	"github.com/gogf/gf/util/gconv"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/net/ghttp"
+	"github.com/gogf/gf/v2/util/gconv"
 	"shop/app/dao"
 	"shop/app/middleware"
 )

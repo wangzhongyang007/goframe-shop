@@ -1,6 +1,6 @@
 package order
 
-import "github.com/gogf/gf/util/gmeta"
+import "github.com/gogf/gf/v2/util/gmeta"
 
 type AddOrderReq struct {
 	//主订单信息

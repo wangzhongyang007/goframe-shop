@@ -3,7 +3,7 @@ package data
 import (
 	"context"
 	"fmt"
-	"github.com/gogf/gf/os/gtime"
+	"github.com/gogf/gf/v2/os/gtime"
 	"shop/app/dao"
 	"shop/app/shared"
 	"shop/library"

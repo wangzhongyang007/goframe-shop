@@ -1,6 +1,6 @@
 package cart
 
-import "github.com/gogf/gf/util/gmeta"
+import "github.com/gogf/gf/v2/util/gmeta"
 
 type AddCartReq struct {
 	GoodsId int `json:"goods_id" v:"required#商品id必传"`

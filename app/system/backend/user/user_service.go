@@ -3,8 +3,8 @@ package user
 import (
 	"context"
 	"database/sql"
-	"github.com/gogf/gf/container/gmap"
-	"github.com/gogf/gf/util/grand"
+	"github.com/gogf/gf/v2/container/gmap"
+	"github.com/gogf/gf/v2/util/grand"
 	"shop/app/dao"
 	"shop/library"
 )
