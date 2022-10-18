@@ -12,7 +12,6 @@ wangzhongyang1993
 
 https://juejin.cn/user/2189882892232029/posts
 
-
 # 交叉编译
 
 ## for Linux
