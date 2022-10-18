@@ -3,7 +3,7 @@ package coupon
 type AddCouponReq struct {
 	Name       string `json:"name" v:"required#优惠券名称必传"`
 	Price      int    `json:"price" v:"required#优惠券金额必传 单位分"`
-	GoodsId    int    `json:"goods_id,omitempty"`
+	GoodsIds   string `json:"goods_ids,omitempty"`
 	CategoryId int    `json:"category_id,omitempty"`
 }
 
@@ -11,7 +11,7 @@ type UpdateCouponReq struct {
 	Id         int    `json:"id"`
 	Name       string `json:"name" v:"required#优惠券名称必传"`
 	Price      int    `json:"price" v:"required#优惠券金额必传 单位分"`
-	GoodsId    int    `json:"goods_id,omitempty"`
+	GoodsIds   string `json:"goods_ids,omitempty"`
 	CategoryId int    `json:"category_id,omitempty"`
 }
 

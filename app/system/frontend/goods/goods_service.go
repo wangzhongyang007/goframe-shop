@@ -3,6 +3,7 @@ package goods
 import (
 	"context"
 	"database/sql"
+	"github.com/gogf/gf/container/gmap"
 	"github.com/gogf/gf/frame/g"
 	"shop/app/dao"
 	"shop/app/model"
@@ -77,24 +78,35 @@ func (s *goodsService) Category(ctx context.Context, req *CategoryPageListReq) (
 	return
 }
 
-func (s *goodsService) List(ctx context.Context, req *SearchPageListReq) (res ListGoodsRes, err error) {
-	whereCondition := g.Map{}
-	if req.Keyword != "" && req.CategoryId != 0 {
-		whereCondition = g.Map{
-			"name like": "%" + req.Keyword + "%",
-			"level1_category_id =? OR level2_category_id =? OR level3_category_id =? ": g.Slice{req.CategoryId, req.CategoryId, req.CategoryId},
-		}
-	} else if req.Keyword != "" {
-		whereCondition = g.Map{
-			"name like": "%" + req.Keyword + "%",
-		}
-	} else if req.CategoryId != 0 {
-		whereCondition = g.Map{
-			"level1_category_id =? OR level2_category_id =? OR level3_category_id =? ": g.Slice{req.CategoryId, req.CategoryId, req.CategoryId},
-		}
-	} else {
-		whereCondition = g.Map{}
+func packCondition(req *SearchPageListReq, whereCondition *gmap.Map) {
+	if req.Keyword != "" {
+		whereCondition.Set(dao.GoodsInfo.Columns.Name+" like ", "%"+req.Keyword+"%")
 	}
+	if req.CategoryId != 0 {
+		whereCondition.Set("level1_category_id =? OR level2_category_id =? OR level3_category_id =? ", g.Slice{req.CategoryId, req.CategoryId, req.CategoryId})
+	}
+}
+
+func (s *goodsService) List(ctx context.Context, req *SearchPageListReq) (res ListGoodsRes, err error) {
+	whereCondition := gmap.New()
+	packCondition(req, whereCondition)
+	//这是优化之前的代码
+	//if req.Keyword != "" && req.CategoryId != 0 {
+	//	whereCondition = g.Map{
+	//		"name like": "%" + req.Keyword + "%",
+	//		"level1_category_id =? OR level2_category_id =? OR level3_category_id =? ": g.Slice{req.CategoryId, req.CategoryId, req.CategoryId},
+	//	}
+	//} else if req.Keyword != "" {
+	//	whereCondition = g.Map{
+	//		"name like": "%" + req.Keyword + "%",
+	//	}
+	//} else if req.CategoryId != 0 {
+	//	whereCondition = g.Map{
+	//		"level1_category_id =? OR level2_category_id =? OR level3_category_id =? ": g.Slice{req.CategoryId, req.CategoryId, req.CategoryId},
+	//	}
+	//} else {
+	//	whereCondition = g.Map{}
+	//}
 
 	//获取数量
 	count, err := dao.GoodsInfo.Ctx(ctx).

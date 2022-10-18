@@ -1,6 +1,7 @@
 package login
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"github.com/goflyfox/gtoken/gtoken"
@@ -10,7 +11,9 @@ import (
 	"github.com/gogf/gf/os/glog"
 	"github.com/gogf/gf/os/gtime"
 	"github.com/gogf/gf/util/gconv"
+	"shop/app/dao"
 	"shop/app/middleware"
+	"shop/app/model"
 	"shop/library/response"
 	"strconv"
 	"time"
@@ -35,6 +38,7 @@ func (s *login) Login(r *ghttp.Request) (string, interface{}) {
 }
 
 func (a *login) LoginAfterFunc(r *ghttp.Request, respData gtoken.Resp) {
+	g.Dump("respData:", respData)
 	if !respData.Success() {
 		respData.Code = 0
 		err := r.Response.WriteJson(respData)
@@ -44,10 +48,38 @@ func (a *login) LoginAfterFunc(r *ghttp.Request, respData gtoken.Resp) {
 		return
 	} else {
 		respData.Code = 1
+		//获得登录用户id
+		adminId := respData.GetString("userKey")
+		//根据id获得登录用户其他信息
+		adminInfo := model.AdminInfo{}
+		err := dao.AdminInfo.Ctx(context.TODO()).WherePri(adminId).Scan(&adminInfo)
+		if err != nil {
+			return
+		}
+		//通过角色查询权限
+		//先通过角色查询权限id
+		var rolePermissionInfos []model.RolePermissionInfo
+		err = dao.RolePermissionInfo.Ctx(context.TODO()).WhereIn(dao.RolePermissionInfo.Columns.RoleId, g.Slice{adminInfo.RoleIds}).Scan(&rolePermissionInfos)
+		if err != nil {
+			return
+		}
+		permissionIds := g.Slice{}
+		for _, info := range rolePermissionInfos {
+			permissionIds = append(permissionIds, info.PermissionId)
+		}
+
+		var permissions []model.PermissionInfo
+		err = dao.PermissionInfo.Ctx(context.TODO()).WhereIn(dao.PermissionInfo.Columns.Id, permissionIds).Scan(&permissions)
+		if err != nil {
+			return
+		}
 		data := &LoginRes{
-			Type:     "Bearer",
-			Token:    respData.GetString("token"),
-			ExpireIn: 10 * 24 * 60 * 60, //单位秒,
+			Type:        "Bearer",
+			Token:       respData.GetString("token"),
+			ExpireIn:    10 * 24 * 60 * 60, //单位秒,
+			IsAdmin:     adminInfo.IsAdmin,
+			RoleIds:     adminInfo.RoleIds,
+			Permissions: permissions,
 		}
 		response.SuccessWithData(r, data)
 	}
@@ -72,6 +104,7 @@ func (a *login) AuthAfterFunc(r *ghttp.Request, respData gtoken.Resp) {
 	return
 }
 
+//todo 退出登录有问题 没起作用
 func (a *login) Logout(r *ghttp.Request, respData gtoken.Resp) {
 	cacheKey := middleware.GToken.CacheKey + gconv.String(r.GetCtxVar(middleware.CtxAccountId))
 	g.Dump(cacheKey)

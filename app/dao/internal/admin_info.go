@@ -21,14 +21,15 @@ type AdminInfoDao struct {
 
 // AdminInfoColumns defines and stores column names for table admin_info.
 type adminInfoColumns struct {
-	Id         string //
-	Name       string // 用户名
-	Password   string // 密码
-	Permission string // 权限
-	CreatedAt  string //
-	UpdatedAt  string //
-	DeletedAt  string //
-	UserSalt   string // 加密盐
+	Id        string //
+	Name      string // 用户名
+	Password  string // 密码
+	RoleIds   string // 角色ids
+	CreatedAt string //
+	UpdatedAt string //
+	DeletedAt string //
+	UserSalt  string // 加密盐
+	IsAdmin   string // 是否超级管理员
 }
 
 func NewAdminInfoDao() *AdminInfoDao {
@@ -37,14 +38,15 @@ func NewAdminInfoDao() *AdminInfoDao {
 		DB:    g.DB("default"),
 		Table: "admin_info",
 		Columns: adminInfoColumns{
-			Id:         "id",
-			Name:       "name",
-			Password:   "password",
-			Permission: "permission",
-			CreatedAt:  "created_at",
-			UpdatedAt:  "updated_at",
-			DeletedAt:  "deleted_at",
-			UserSalt:   "user_salt",
+			Id:        "id",
+			Name:      "name",
+			Password:  "password",
+			RoleIds:   "role_ids",
+			CreatedAt: "created_at",
+			UpdatedAt: "updated_at",
+			DeletedAt: "deleted_at",
+			UserSalt:  "user_salt",
+			IsAdmin:   "is_admin",
 		},
 	}
 }

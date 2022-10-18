@@ -26,7 +26,7 @@ type articleInfoColumns struct {
 	Title     string // 标题
 	Desc      string // 摘要
 	PicUrl    string // 封面图
-	IsAdmin   string // 是否官方发布
+	IsAdmin   string // 1后台管理员发布 2前台用户发布
 	Praise    string // 点赞数
 	Detail    string // 文章详情
 	CreatedAt string //

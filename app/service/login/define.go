@@ -1,8 +1,10 @@
 package login
 
+import "shop/app/model"
+
 type LoginReq struct {
 	Name     string `json:"name"`
-	PassWord string `json:"password" v:"required-if:type,0|password#password必须传递|密码限定在6-18位之间"`
+	PassWord string `json:"password" v:"required#password必须传递"`
 }
 
 type AccessTokenReq struct {
@@ -33,9 +35,12 @@ type LoginQRCodeRes struct {
 }
 
 type LoginRes struct {
-	Type     string `json:"type"`
-	Token    string `json:"token"`
-	ExpireIn int    `json:"expire_in"`
+	Type        string                 `json:"type"`
+	Token       string                 `json:"token"`
+	ExpireIn    int                    `json:"expire_in"`
+	IsAdmin     int                    `json:"is_admin"`    //是否超管
+	RoleIds     string                 `json:"role_ids"`    //角色
+	Permissions []model.PermissionInfo `json:"permissions"` //权限列表
 }
 
 type CheckTicketReq struct {

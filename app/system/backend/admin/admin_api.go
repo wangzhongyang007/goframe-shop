@@ -35,6 +35,20 @@ func (*rotationApi) Update(r *ghttp.Request) {
 	}
 }
 
+//修改我的密码
+func (*rotationApi) UpdateMyPassword(r *ghttp.Request) {
+	var req *UpdateMyPasswordReq
+	if err := r.Parse(&req); err != nil {
+		response.ParamErr(r, err)
+	}
+
+	if res, err := service.UpdateMyPassword(r, req); err != nil {
+		response.Code(r, err)
+	} else {
+		response.SuccessWithData(r, res)
+	}
+}
+
 func (*rotationApi) Delete(r *ghttp.Request) {
 	var req *SoftDeleteReq
 	if err := r.Parse(&req); err != nil {

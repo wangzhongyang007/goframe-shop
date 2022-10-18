@@ -25,8 +25,11 @@ func (s *dataService) HeadCard(ctx context.Context) (res HeadCardRes, err error)
 func (s *dataService) ECharts(ctx context.Context) (res EChartsRes, err error) {
 	res.OrderTotal = OrderTotal(ctx)
 	res.SalePriceTotal = SalePriceTotalRecentDays(ctx)
+	//todo
 	res.ConsumptionPerPerson = OrderTotal(ctx)
 	res.NewOrder = OrderTotal(ctx) //新增订单和今日订单一致
+	//res.ConsumptionPerPerson = ConsumptionPerPerson(ctx)
+	//res.NewOrder = TodayOrderCount(ctx) //新增订单和今日订单一致
 	return
 }
 
@@ -104,6 +107,7 @@ func userTotal(ctx context.Context) (total int) {
 	return
 }
 
+//人均消费 todo 算每天的人均消费
 func ConsumptionPerPerson(ctx context.Context) (per int) {
 	priceTotal := SalePriceTotal(ctx)
 	userTotal := userTotal(ctx)

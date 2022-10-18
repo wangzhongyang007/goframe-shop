@@ -13,7 +13,7 @@ type CouponInfo struct {
 	Id         int         `orm:"id,primary"  json:"id"`         //
 	Name       string      `orm:"name"        json:"name"`       //
 	Price      int         `orm:"price"       json:"price"`      // 优惠前面值 单位分
-	GoodsId    int         `orm:"goods_id"    json:"goodsId"`    // 关联使用的goods_id
+	GoodsIds   string      `orm:"goods_ids"   json:"goodsIds"`   // 关联使用的goods_ids  逗号分隔
 	CategoryId int         `orm:"category_id" json:"categoryId"` // 关联使用的分类id
 	CreatedAt  *gtime.Time `orm:"created_at"  json:"createdAt"`  //
 	UpdatedAt  *gtime.Time `orm:"updated_at"  json:"updatedAt"`  //

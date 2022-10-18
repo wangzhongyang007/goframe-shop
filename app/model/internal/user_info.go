@@ -15,8 +15,8 @@ type UserInfo struct {
 	Avatar       string      `orm:"avatar"        json:"avatar"`       // 头像
 	Password     string      `orm:"password"      json:"password"`     //
 	UserSalt     string      `orm:"user_salt"     json:"userSalt"`     // 加密盐 生成密码用
-	Sex          int         `orm:"sex"           json:"sex"`          // 1男 2女 0未知
-	Status       int         `orm:"status"        json:"status"`       // 1正常 2拉黑
+	Sex          int         `orm:"sex"           json:"sex"`          // 1男 2女
+	Status       int         `orm:"status"        json:"status"`       // 1正常 2拉黑冻结
 	Sign         string      `orm:"sign"          json:"sign"`         // 个性签名
 	SecretAnswer string      `orm:"secret_answer" json:"secretAnswer"` // 密保问题的答案
 	CreatedAt    *gtime.Time `orm:"created_at"    json:"createdAt"`    //

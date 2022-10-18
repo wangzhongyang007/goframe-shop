@@ -24,7 +24,7 @@ type couponInfoColumns struct {
 	Id         string //
 	Name       string //
 	Price      string // 优惠前面值 单位分
-	GoodsId    string // 关联使用的goods_id
+	GoodsIds   string // 关联使用的goods_ids  逗号分隔
 	CategoryId string // 关联使用的分类id
 	CreatedAt  string //
 	UpdatedAt  string //
@@ -40,7 +40,7 @@ func NewCouponInfoDao() *CouponInfoDao {
 			Id:         "id",
 			Name:       "name",
 			Price:      "price",
-			GoodsId:    "goods_id",
+			GoodsIds:   "goods_ids",
 			CategoryId: "category_id",
 			CreatedAt:  "created_at",
 			UpdatedAt:  "updated_at",

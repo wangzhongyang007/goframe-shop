@@ -18,6 +18,7 @@ type rotationService struct {
 }
 
 func (s *rotationService) Add(r *ghttp.Request, req *AddArticleReq) (res sql.Result, err error) {
+	//获得当前登录用户
 	req.UserId = gconv.Int(r.GetCtxVar(middleware.CtxAccountId))
 	res, err = dao.ArticleInfo.Ctx(r.GetCtx()).Insert(req)
 	if err != nil {

@@ -1,15 +1,26 @@
 package admin
 
 type AddAdminReq struct {
-	Name       string `json:"name" v:"required#用户名必传"`
-	Password   string `json:"password" v:"required#密码必传"`
-	Permission string `json:"permission" v:"required#权限必传"`
-	UserSalt   string `json:"user_salt,omitempty"`
+	Name     string `json:"name" v:"required#用户名必传"`
+	Password string `json:"password" v:"required#密码必传"`
+	RoleIds  string `json:"role_ids,omitempty"`
+	IsAdmin  int    `json:"is_admin,omitempty"`
+	UserSalt string `json:"user_salt,omitempty"`
 }
 
 type UpdateAdminReq struct {
-	Id int `json:"id"`
-	AddAdminReq
+	Id       int    `json:"id"`
+	Name     string `json:"name,omitempty"`
+	Password string `json:"password,omitempty"`
+	RoleIds  string `json:"role_ids,omitempty"`
+	IsAdmin  int    `json:"is_admin,omitempty"`
+	UserSalt string `json:"user_salt,omitempty"`
+}
+
+type UpdateMyPasswordReq struct {
+	Id       int    `json:"id,omitempty"`
+	Password string `json:"password" v:"required#密码必传"`
+	UserSalt string `json:"user_salt,omitempty"`
 }
 
 type SoftDeleteReq struct {

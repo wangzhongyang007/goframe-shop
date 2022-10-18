@@ -24,7 +24,7 @@ func GetRecent7Date() (dates []string) {
 	gt := gtime.New(time.Now())
 	dates = []string{
 		gt.Format("Y-m-d"),
-		gt.Add(-gtime.D).Format("Y-m-d"),
+		gt.Add(-gtime.D * 1).Format("Y-m-d"),
 		gt.Add(-gtime.D * 2).Format("Y-m-d"),
 		gt.Add(-gtime.D * 3).Format("Y-m-d"),
 		gt.Add(-gtime.D * 4).Format("Y-m-d"),

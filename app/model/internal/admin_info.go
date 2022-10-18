@@ -10,12 +10,13 @@ import (
 
 // AdminInfo is the golang structure for table admin_info.
 type AdminInfo struct {
-	Id         int         `orm:"id,primary" json:"id"`         //
-	Name       string      `orm:"name"       json:"name"`       // 用户名
-	Password   string      `orm:"password"   json:"password"`   // 密码
-	Permission string      `orm:"permission" json:"permission"` // 权限
-	CreatedAt  *gtime.Time `orm:"created_at" json:"createdAt"`  //
-	UpdatedAt  *gtime.Time `orm:"updated_at" json:"updatedAt"`  //
-	DeletedAt  *gtime.Time `orm:"deleted_at" json:"deletedAt"`  //
-	UserSalt   string      `orm:"user_salt"  json:"userSalt"`   // 加密盐
+	Id        int         `orm:"id,primary"  json:"id"`        //
+	Name      string      `orm:"name,unique" json:"name"`      // 用户名
+	Password  string      `orm:"password"    json:"password"`  // 密码
+	RoleIds   string      `orm:"role_ids"    json:"roleIds"`   // 角色ids
+	CreatedAt *gtime.Time `orm:"created_at"  json:"createdAt"` //
+	UpdatedAt *gtime.Time `orm:"updated_at"  json:"updatedAt"` //
+	DeletedAt *gtime.Time `orm:"deleted_at"  json:"deletedAt"` //
+	UserSalt  string      `orm:"user_salt"   json:"userSalt"`  // 加密盐
+	IsAdmin   int         `orm:"is_admin"    json:"isAdmin"`   // 是否超级管理员
 }

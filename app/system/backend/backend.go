@@ -10,12 +10,15 @@ import (
 	"shop/app/system/backend/article"
 	"shop/app/system/backend/category"
 	"shop/app/system/backend/comment"
+	"shop/app/system/backend/consignee"
 	"shop/app/system/backend/coupon"
 	"shop/app/system/backend/data"
 	"shop/app/system/backend/goods"
 	"shop/app/system/backend/goodsOptions"
 	"shop/app/system/backend/order"
+	"shop/app/system/backend/permission"
 	"shop/app/system/backend/refund"
+	"shop/app/system/backend/role"
 	"shop/app/system/backend/rotation"
 	"shop/app/system/backend/upload"
 	"shop/app/system/backend/user"
@@ -24,6 +27,12 @@ import (
 func Init(s *ghttp.Server) {
 	backendLogin()
 	s.Group("/backend/", func(group *ghttp.RouterGroup) {
+		//不需要登录就能访问的接口
+		group.Group("sso/", func(group *ghttp.RouterGroup) {
+			group.POST("register/", admin.Admin.Add)
+		})
+
+		//以下需要登录
 		group.Middleware(middleware.MiddlewareGToken.GetToken)
 		//上传文件
 		group.Group("upload/", func(group *ghttp.RouterGroup) {
@@ -47,6 +56,23 @@ func Init(s *ghttp.Server) {
 			group.POST("update/", admin.Admin.Update)
 			group.POST("delete/", admin.Admin.Delete)
 			group.POST("list/", admin.Admin.List)
+			group.POST("update/my/password", admin.Admin.UpdateMyPassword) //修改自己的密码
+		})
+		//角色管理
+		group.Group("role/", func(group *ghttp.RouterGroup) {
+			group.POST("add/", role.Role.Add)
+			group.POST("update/", role.Role.Update)
+			group.POST("delete/", role.Role.Delete)
+			group.POST("list/", role.Role.List)
+			group.POST("add/permission", role.Role.AddPermission)       //添加角色权限关联
+			group.POST("delete/permission", role.Role.DeletePermission) //去掉角色权限关联
+		})
+		//权限管理
+		group.Group("permission/", func(group *ghttp.RouterGroup) {
+			group.POST("add/", permission.Permission.Add)
+			group.POST("update/", permission.Permission.Update)
+			group.POST("delete/", permission.Permission.Delete)
+			group.POST("list/", permission.Permission.List)
 		})
 		//会员（用户）管理
 		group.Group("user/", func(group *ghttp.RouterGroup) {
@@ -115,6 +141,10 @@ func Init(s *ghttp.Server) {
 			group.POST("list/", refund.Refund.List)
 			group.POST("detail/", refund.Refund.Detail)
 		})
+		//收货地址
+		group.Group("consignee/", func(group *ghttp.RouterGroup) {
+			group.POST("list/", consignee.Consignee.List)
+		})
 	})
 }
 
@@ -123,7 +153,7 @@ func backendLogin() {
 	middleware.GToken = &gtoken.GfToken{
 		//Timeout:    gconv.Int(g.Cfg().Get("gtoken.timeout")) * 60 * 1000,
 		//MaxRefresh: 60 * 1000, //单位毫秒 登录1分钟后有请求操作则主动刷新token有效期
-		CacheMode:  2, //gredis
+		CacheMode:  1, //缓存模式 1 gcache 2 gredis 默认1
 		LoginPath:  "/backend/sso/login",
 		LogoutPath: "/backend/sso/logout",
 		AuthPaths:  g.SliceStr{},

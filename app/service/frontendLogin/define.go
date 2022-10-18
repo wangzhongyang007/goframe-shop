@@ -29,6 +29,10 @@ type AccessTokenReq struct {
 type AccessTokenRes struct {
 	AccessToken string `json:"access_token"` //获取到的凭证
 	ExpiresIn   int    `json:"expires_in"`   //凭证有效时间，单位：秒
+	//以下for 刷新token 这版不做
+	//Time int `json:"time"`
+	//RefreshToken        string `json:"refresh_token"`
+	//RefreshTokenExpires int    `json:"refresh_token_expires"` //refresh_token过期时间戳
 }
 
 type AccessTokenInvalidReq struct {

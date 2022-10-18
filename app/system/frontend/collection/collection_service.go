@@ -24,15 +24,6 @@ func (s *collectionService) Add(r *ghttp.Request, req *AddCollectionReq) (res sq
 	return
 }
 
-//func (s *collectionService) Update(r *ghttp.Request, req *UpdateCollectionReq) (res sql.Result, err error) {
-//	req.UserId = gconv.Int(r.GetCtxVar(middleware.CtxAccountId))
-//	res, err = dao.CollectionInfo.Ctx(r.GetCtx()).WherePri(req.Id).Update(req)
-//	if err != nil {
-//		return nil, err
-//	}
-//	return
-//}
-
 func (s *collectionService) Delete(ctx context.Context, req *DeleteReq) (res sql.Result, err error) {
 	if req.Id != 0 {
 		//根据收藏id删除

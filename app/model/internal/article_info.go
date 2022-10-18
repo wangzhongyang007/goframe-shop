@@ -15,7 +15,7 @@ type ArticleInfo struct {
 	Title     string      `orm:"title"      json:"title"`     // 标题
 	Desc      string      `orm:"desc"       json:"desc"`      // 摘要
 	PicUrl    string      `orm:"pic_url"    json:"picUrl"`    // 封面图
-	IsAdmin   int         `orm:"is_admin"   json:"isAdmin"`   // 是否官方发布
+	IsAdmin   int         `orm:"is_admin"   json:"isAdmin"`   // 1后台管理员发布 2前台用户发布
 	Praise    int         `orm:"praise"     json:"praise"`    // 点赞数
 	Detail    string      `orm:"detail"     json:"detail"`    // 文章详情
 	CreatedAt *gtime.Time `orm:"created_at" json:"createdAt"` //

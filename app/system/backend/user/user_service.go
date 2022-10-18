@@ -80,7 +80,7 @@ func packListCondition(req *PageListReq, whereCondition *gmap.Map) {
 		whereCondition.Set(dao.UserInfo.Columns.Sex, req.Sex)
 	}
 	if req.Name != "" {
-		whereCondition.Set(dao.UserInfo.Columns.Name, req.Name)
+		whereCondition.Set(dao.UserInfo.Columns.Name+" like ", "%"+req.Keyword+"%")
 	}
 	if req.Keyword != "" {
 		whereCondition.Set(dao.UserInfo.Columns.Name+" like ", "%"+req.Keyword+"%")

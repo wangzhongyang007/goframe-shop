@@ -1,6 +1,6 @@
 FROM loads/alpine:3.8
 
-LABEL maintainer="xxxx@qq.com"
+LABEL maintainer="425772719@qq.com"
 
 ###############################################################################
 #                                INSTALLATION

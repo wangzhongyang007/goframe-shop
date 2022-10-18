@@ -26,8 +26,8 @@ type userInfoColumns struct {
 	Avatar       string // 头像
 	Password     string //
 	UserSalt     string // 加密盐 生成密码用
-	Sex          string // 1男 2女 0未知
-	Status       string // 1正常 2拉黑
+	Sex          string // 1男 2女
+	Status       string // 1正常 2拉黑冻结
 	Sign         string // 个性签名
 	SecretAnswer string // 密保问题的答案
 	CreatedAt    string //

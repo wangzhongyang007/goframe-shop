@@ -10,7 +10,10 @@ import (
 	"shop/app/dao"
 	"shop/app/middleware"
 	"shop/app/model"
+	"time"
 )
+
+const ArticleDetailCacheKey = "ArticleDetailCacheKey_"
 
 var service = new(rotationService)
 
@@ -37,8 +40,9 @@ func (s *rotationService) Update(r *ghttp.Request, req *UpdateArticleReq) (res s
 	if articleInfo.UserId != gconv.Int(r.GetCtxVar(middleware.CtxAccountId)) {
 		return nil, errors.New("这不是您的文章，不允许修改")
 	}
-
-	res, err = dao.ArticleInfo.Ctx(ctx).WherePri(req.Id).Update(req)
+	//更新缓存
+	cacheKey := ArticleDetailCacheKey + gconv.String(req.Id)
+	res, err = dao.ArticleInfo.Ctx(ctx).Cache(-1, cacheKey).WherePri(req.Id).Update(req)
 	if err != nil {
 		return nil, err
 	}
@@ -57,9 +61,9 @@ func (s *rotationService) Delete(r *ghttp.Request, req *SoftDeleteReq) (res sql.
 }
 
 func (s *rotationService) Detail(r *ghttp.Request, req *DetailReq) (res model.ArticleInfo, err error) {
-	//g.Dump("req.Id:", req.Id)
-	err = dao.ArticleInfo.Ctx(r.GetCtx()).
-		WherePri(req.Id).Scan(&res)
+	//查询时优先查询缓存
+	cacheKey := ArticleDetailCacheKey + gconv.String(req.Id)
+	err = dao.ArticleInfo.Ctx(r.GetCtx()).Cache(time.Hour, cacheKey).WherePri(req.Id).Scan(&res)
 	if err != nil {
 		return res, err
 	}

@@ -69,16 +69,22 @@ func Init(s *ghttp.Server) {
 		//优惠券
 		group.Group("user/coupon/", func(group *ghttp.RouterGroup) {
 			group.POST("add/", userCoupon.UserCoupon.Add) //领券
+			//group.POST("update/", userCoupon.Coupon.Update)
+			//group.POST("delete/", userCoupon.Coupon.Delete)
 			group.POST("list/", userCoupon.UserCoupon.List)
 		})
 		//订单
 		group.Group("order/", func(group *ghttp.RouterGroup) {
 			group.POST("add/", order.Order.Add) //生成订单
-			group.POST("list/", order.Order.List)
+			//group.POST("update/", order.Order.Update)
+			//group.POST("delete/", order.Order.Delete)
+			group.POST("list/", order.Order.List) //todo 关联取值 根据需求和设计稿简化订单逻辑 看能不能一张表搞定，一个订单只买一个商品？
 		})
 		//售后
 		group.Group("refund/", func(group *ghttp.RouterGroup) {
 			group.POST("add/", refund.Refund.Add) //申请售后
+			//group.POST("update/", refund.Refund.Update)
+			//group.POST("delete/", refund.Refund.Delete)
 			group.POST("list/", refund.Refund.List)
 		})
 		//收货地址
@@ -91,6 +97,7 @@ func Init(s *ghttp.Server) {
 		//收藏
 		group.Group("collection/", func(group *ghttp.RouterGroup) {
 			group.POST("add/", collection.Collection.Add)
+			//group.POST("update/", collection.Collection.Update)
 			group.POST("delete/", collection.Collection.Delete)
 			group.POST("list/", collection.Collection.List)
 		})
@@ -106,12 +113,14 @@ func Init(s *ghttp.Server) {
 		//点赞
 		group.Group("praise/", func(group *ghttp.RouterGroup) {
 			group.POST("add/", praise.Praise.Add)
+			//group.POST("update/", praise.Praise.Update)
 			group.POST("delete/", praise.Praise.Delete)
 			group.POST("list/", praise.Praise.List)
 		})
 		//评论
 		group.Group("comment/", func(group *ghttp.RouterGroup) {
 			group.POST("add/", comment.Comment.Add)
+			//group.POST("update/", comment.Comment.Update)
 			group.POST("delete/", comment.Comment.Delete)
 			group.POST("list/", comment.Comment.List)
 		})
@@ -125,7 +134,7 @@ func Login() {
 		//都用默认的
 		//Timeout:    gconv.Int(g.Cfg().Get("gtoken.timeout")) * gconv.Int(gtime.M),
 		//MaxRefresh: 60 * 1000, //单位毫秒 登录1分钟后有请求操作则主动刷新token有效期
-		CacheMode:  2,
+		CacheMode:  1, //缓存模式 1 gcache 2 gredis 默认1
 		LoginPath:  "/frontend/sso/login",
 		LogoutPath: "/frontend/sso/logout",
 		AuthPaths:  g.SliceStr{},

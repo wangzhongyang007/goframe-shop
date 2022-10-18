@@ -101,6 +101,7 @@ func (a *frontendLogin) AuthAfterFunc(r *ghttp.Request, respData gtoken.Resp) {
 	return
 }
 
+//todo 退出登录有问题 没起作用
 func (a *frontendLogin) Logout(r *ghttp.Request, respData gtoken.Resp) {
 	cacheKey := middleware.GToken.CacheKey + gconv.String(r.GetCtxVar(middleware.CtxAccountId))
 	g.Dump(cacheKey)

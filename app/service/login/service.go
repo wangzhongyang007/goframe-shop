@@ -37,9 +37,10 @@ func (s *loginService) Login(ctx context.Context, req *LoginReq) (tokenInfo *mid
 		return nil, gerror.New("账号或者密码不正确")
 	}
 	tokenInfo = &middleware.TokenInfo{
-		Id:         adminInfo.Id,
-		Name:       adminInfo.Name,
-		Permission: adminInfo.Permission,
+		Id:      adminInfo.Id,
+		Name:    adminInfo.Name,
+		RoleIds: adminInfo.RoleIds,
+		IsAdmin: adminInfo.IsAdmin,
 	}
 	return
 }

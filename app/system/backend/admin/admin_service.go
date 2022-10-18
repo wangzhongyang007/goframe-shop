@@ -4,8 +4,11 @@ import (
 	"context"
 	"database/sql"
 	"github.com/gogf/gf/frame/g"
+	"github.com/gogf/gf/net/ghttp"
+	"github.com/gogf/gf/util/gconv"
 	"github.com/gogf/gf/util/grand"
 	"shop/app/dao"
+	"shop/app/middleware"
 	"shop/library"
 )
 
@@ -31,6 +34,22 @@ func (s *rotationService) Update(ctx context.Context, req *UpdateAdminReq) (res 
 		req.Password = library.EncryptPassword(req.Password, UserSalt)
 		req.UserSalt = UserSalt
 	}
+	res, err = dao.AdminInfo.Ctx(ctx).WherePri(req.Id).Update(req)
+	if err != nil {
+		return nil, err
+	}
+	return
+}
+
+func (s *rotationService) UpdateMyPassword(r *ghttp.Request, req *UpdateMyPasswordReq) (res sql.Result, err error) {
+	if req.Password != "" {
+		UserSalt := grand.S(10)
+		req.Password = library.EncryptPassword(req.Password, UserSalt)
+		req.UserSalt = UserSalt
+	}
+	//获得当前登录用户
+	req.Id = gconv.Int(r.GetCtxVar(middleware.CtxAccountId))
+	ctx := r.GetCtx()
 	res, err = dao.AdminInfo.Ctx(ctx).WherePri(req.Id).Update(req)
 	if err != nil {
 		return nil, err

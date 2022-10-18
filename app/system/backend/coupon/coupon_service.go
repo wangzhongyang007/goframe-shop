@@ -13,7 +13,6 @@ type couponService struct {
 }
 
 func (s *couponService) Add(r *ghttp.Request, req *AddCouponReq) (res sql.Result, err error) {
-	//req.UserId = gconv.Int(r.GetCtxVar(middleware.CtxAccountId))
 	res, err = dao.CouponInfo.Ctx(r.GetCtx()).Insert(req)
 	if err != nil {
 		return nil, err

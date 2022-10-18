@@ -23,6 +23,8 @@ type frontendLoginService struct {
 	退出登录
 */
 func (a *frontendLoginService) Logout(r *ghttp.Request, req *LogoutReq) (err error) {
+	//token := r.Cookie.Get(_cookie_sso)
+	//r.Cookie.SetCookie(_cookie_sso, "", "stbz.top", "/", -1)
 	r.Response.RedirectTo(req.Redirect, http.StatusFound)
 	return
 }
