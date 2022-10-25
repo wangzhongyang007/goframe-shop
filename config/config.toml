@@ -1,6 +1,6 @@
 # HTTP Server
 [server]
-Address = ":8299"
+Address = ":8199"
 ServerRoot = "public"
 ServerAgent = "gf-app"
 LogPath = "/tmp/log/gf-app/server"
