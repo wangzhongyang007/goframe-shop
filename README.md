@@ -1,7 +1,8 @@
 # 说明
 目前main分支仍然使用goframe 1.16版本实现
 
-近期会花时间用goframe最新版2.2重写
+需要goframe最新版2.2版本的朋友请查看这个项目：
+https://github.com/wangzhongyang007/goframe-shop-v2
 
 # 运行流程
 
